@@ -7,8 +7,24 @@ from ctypes import *
 from ctypes import POINTER
 from ctypes import c_int
 from ctypes import py_object
-
 from ctypes.util import find_library
+if sys.platform == 'linux2':
+    ##########################################
+    # find_library on Linux could only be used if your libAmiCoPyJava.so is
+    # on system search path or path to the library is added in to LD_LIBRARY_PATH
+    #
+    # name =  'AmiCoPyJava'
+    # loadName = find_library(name)
+    ##########################################
+    loadName = './libAmiCoPyJava.so'
+    libamico = ctypes.CDLL(loadName)
+    print libamico
+else: #else if OS is a Mac OS X (libAmiCo.dylib is searched for) or Windows (AmiCo.dll)
+    name = 'AmiCoPyJava'
+    loadName = find_library(name)
+    print loadName
+    libamico = ctypes.CDLL(loadName)
+    print libamico
 from forwardjumpingagent import ForwardJumpingAgent
 # import numpy
 # os.environ['LD_LIBRARY_PATH'] = '/usr/lib/jvm/java-8-oracle/jre/lib/amd64:/usr/lib/jvm/java-8-oracle/jre/lib/amd64/server'
@@ -66,28 +82,12 @@ def cfunc(name, dll, result, * args):
     return CFUNCTYPE(result, * atypes)((name, dll), tuple(aflags))
 
 
-def amiCoSimulator():
+def amico_simulator():
     """simple AmiCo env interaction"""
     print "Py: AmiCo Simulation Started:"
     print "library found: "
     print "Platform: ", sys.platform
-    if (sys.platform == 'linux2'):
-        ##########################################
-        # find_library on Linux could only be used if your libAmiCoPyJava.so is
-        # on system search path or path to the library is added in to LD_LIBRARY_PATH
-        #
-        # name =  'AmiCoPyJava'
-        # loadName = find_library(name)
-        ##########################################
-        loadName = './libAmiCoPyJava.so'
-        libamico = ctypes.CDLL(loadName)
-        print libamico
-    else: #else if OS is a Mac OS X (libAmiCo.dylib is searched for) or Windows (AmiCo.dll)
-        name =  'AmiCoPyJava'
-        loadName = find_library(name)
-        print loadName
-        libamico = ctypes.CDLL(loadName)
-        print libamico
+
     
     javaClass = "ch/idsia/benchmark/mario/environments/MarioEnvironment"
     libamico.amicoInitialize(1, "-Djava.class.path=." + os.pathsep + ":jdom.jar")
@@ -122,7 +122,7 @@ def amiCoSimulator():
         obsDetails = getObservationDetails()
         print obsDetails
         agent.setObservationDetails(obsDetails[0], obsDetails[1], obsDetails[2], obsDetails[3])
-        while (not libamico.isLevelFinished()):
+        while not libamico.isLevelFinished():
             totalIterations +=1 
             libamico.tick()
             obs = getEntireObservation(1, 0)
@@ -141,6 +141,6 @@ def amiCoSimulator():
         seed += 1
 
 if __name__ == "__main__":
-    amiCoSimulator()
+    amico_simulator()
 
 

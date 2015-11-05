@@ -1,6 +1,3 @@
-__author__="Sergey Karakovskiy, sergey at idsia fullstop ch"
-__date__ ="$May 2, 2009 7:54:12 PM$"
-
 class MarioAgent:
 #    class MarioAgent(Agent):
     """ An agent is an entity capable of producing actions, based on previous observations.
@@ -8,16 +5,16 @@ class MarioAgent:
     """
 
     def integrateObservation(self, squashedObservation, squashedEnemies, marioPos, enemiesPos, marioState):
-        raise "Not implemented"
+        raise NotImplemented
 
     def getAction(self):
-        raise "Not implemented"
+        raise NotImplemented
 
     def giveIntermediateReward(self, reward):
         pass
       
     def setObservationDetails(rfWidth, rfHeight, egoRow, egoCol):
-	pass
+        pass
      
     def _getName(self):
         if self._name is None:
@@ -34,7 +31,6 @@ class MarioAgent:
     def __repr__(self):
         """ The default representation of a named object is its name. """
         return "<%s '%s'>" % (self.__class__.__name__, self.name)
+
     def newEpisode(self):
         pass
-
-

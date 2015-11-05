@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-__author__ = "Sergey Karakovskiy, sergey at idsia fullstop ch"
-__date__ = "$August 26, 2010 1:33:34 PM$"
-
 from marioagent import MarioAgent
+
 
 class ForwardJumpingAgent(MarioAgent):
     """ In fact the Python twin of the
@@ -38,11 +36,11 @@ class ForwardJumpingAgent(MarioAgent):
     def getAction(self):
         """ Possible analysis of current observation and sending an action back
         """
-	#print "M: mayJump: %s, onGround: %s, level[11,12]: %d, level[11,13]: %d, jc: %d" % (self.mayMarioJump, self.isMarioOnGround, self.levelScene[11,12], self.levelScene[11,13], self.trueJumpCounter)
-	if (self.isEpisodeOver):
-	    return (1, 1, 1, 1, 1, 1)
+        #print "M: mayJump: %s, onGround: %s, level[11,12]: %d, level[11,13]: %d, jc: %d" % (self.mayMarioJump, self.isMarioOnGround, self.levelScene[11,12], self.levelScene[11,13], self.trueJumpCounter)
+        if self.isEpisodeOver:
+            return 1, 1, 1, 1, 1, 1
            
-        self.action[self.KEY_SPEED] = self.action[self.KEY_JUMP] =  self.mayMarioJump or not self.isMarioOnGround;
+        self.action[self.KEY_SPEED] = self.action[self.KEY_JUMP] = self.mayMarioJump or not self.isMarioOnGround
 
         t = tuple(self.action)
         return t
@@ -74,6 +72,6 @@ class ForwardJumpingAgent(MarioAgent):
         print rfWidth, rfHeight, egoRow, egoCol
         self.receptiveFieldWidth = rfWidth
         self.receptiveFieldHeight = rfHeight
-        self.marioEgoRow = egoRow;
-        self.marioEgoCol = egoCol;
+        self.marioEgoRow = egoRow
+        self.marioEgoCol = egoCol
         print self.receptiveFieldWidth, self.receptiveFieldHeight, self.marioEgoRow, self.marioEgoCol
