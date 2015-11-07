@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import sys
 import os
-
+from evaluationinfo import EvaluationInfo
+from forwardjumpingagent import ForwardJumpingAgent
 import ctypes
 from ctypes import *
 from ctypes import POINTER
@@ -25,10 +26,9 @@ else: #else if OS is a Mac OS X (libAmiCo.dylib is searched for) or Windows (Ami
     print loadName
     libamico = ctypes.CDLL(loadName)
     print libamico
-from forwardjumpingagent import ForwardJumpingAgent
+
 # import numpy
 # os.environ['LD_LIBRARY_PATH'] = '/usr/lib/jvm/java-8-oracle/jre/lib/amd64:/usr/lib/jvm/java-8-oracle/jre/lib/amd64/server'
-from evaluationinfo import EvaluationInfo
 
 
 class ListPOINTER(object):
