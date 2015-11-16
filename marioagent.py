@@ -13,7 +13,7 @@ class MarioAgent:
     def giveIntermediateReward(self, reward):
         pass
       
-    def setObservationDetails(rfWidth, rfHeight, egoRow, egoCol):
+    def setObservationDetails(self, rfWidth, rfHeight, egoRow, egoCol):
         pass
      
     def _getName(self):

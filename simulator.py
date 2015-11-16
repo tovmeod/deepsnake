@@ -98,8 +98,6 @@ def amico_simulator():
     print "library found: "
     print "Platform: ", sys.platform
 
-
-    
     agent = Agent()
 
     options = ""
@@ -111,15 +109,15 @@ def amico_simulator():
 
     k = 1
     seed = 0
-    print "Py: ======Evaluation STARTED======"
+    print("Py: ======Evaluation STARTED======")
     total_iterations = 0
     # for i in range(k, k+10000):
     for i in range(k, k+1):
         options1 = options + " -ls " + str(seed)
-        print "options: ", options1
+        print("options: ", options1)
         reset(options1)
         obs_details = getObservationDetails()
-        print obs_details
+        print(obs_details)
         agent.setObservationDetails(obs_details[0], obs_details[1], obs_details[2], obs_details[3])
         while not libamico.isLevelFinished():
             total_iterations += 1
@@ -134,12 +132,10 @@ def amico_simulator():
             action = agent.getAction()
             # print "action: ", action
             performAction(action)
-        print "Py: TOTAL ITERATIONS: ", total_iterations
+        print("Py: TOTAL ITERATIONS: ", total_iterations)
         evaluationInfo = getEvaluationInfo()
-        print "evaluationInfo = \n", EvaluationInfo(evaluationInfo)
+        print("evaluationInfo = \n", EvaluationInfo(evaluationInfo))
         seed += 1
 
 if __name__ == "__main__":
     amico_simulator()
-
-

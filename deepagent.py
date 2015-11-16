@@ -10,7 +10,7 @@ class Agent(MarioAgent):
     actionStr = None
     KEY_JUMP = 3
     KEY_SPEED = 4
-    #levelScene = None
+    # levelScene = None
     mayMarioJump = None
     isMarioOnGround = None
     marioFloats = None
@@ -18,9 +18,6 @@ class Agent(MarioAgent):
     isEpisodeOver = False
     marioState = None
     
-    def getName(self):
-        return self.agentName
-
     def reset(self):
         self.action = [0, 0, 0, 0, 0, 0]
         self.action[1] = 1
@@ -31,7 +28,7 @@ class Agent(MarioAgent):
         """Constructor"""
         self.reset()
         self.actionStr = ""
-        self.agentName = "Python Forward Jumping Agent"
+        self.agentName = "Python Deep Agent"
         
     def getAction(self):
         """ Possible analysis of current observation and sending an action back
@@ -43,35 +40,36 @@ class Agent(MarioAgent):
         self.action[self.KEY_SPEED] = self.action[self.KEY_JUMP] = self.mayMarioJump or not self.isMarioOnGround
 
         t = tuple(self.action)
+        print('action tuple ', t)
         return t
 
     def integrateObservation(self, squashedObservation, squashedEnemies, marioPos, enemiesPos, marioState):
         """This method stores the observation inside the agent"""
-        #print "Py: got observation::: squashedObservation: \n", squashedObservation
-        #print "Py: got observation::: squashedEnemies: \n", squashedEnemies
-        #print "Py: got observation::: marioPos: \n", marioPos
-        #print "Py: got observation::: enemiesPos: \n", enemiesPos
-        #print "Py: got observation::: marioState: \n", marioState
-        #a = numpy.array(squashedObservation)
-        #row = 19
-        #col = 19
-        #a.resize((row,col))
-        #print "\n a== \n", a
-        #levelScene = a
-        #enemiesObservation = numpy.array(squashedEnemies)
-        #enemiesObservation.resize((row,col))
+        # print "Py: got observation::: squashedObservation: \n", squashedObservation
+        # print "Py: got observation::: squashedEnemies: \n", squashedEnemies
+        # print "Py: got observation::: marioPos: \n", marioPos
+        # print "Py: got observation::: enemiesPos: \n", enemiesPos
+        # print "Py: got observation::: marioState: \n", marioState
+        # a = numpy.array(squashedObservation)
+        # row = 19
+        # col = 19
+        # a.resize((row,col))
+        # print "\n a== \n", a
+        # levelScene = a
+        # enemiesObservation = numpy.array(squashedEnemies)
+        # enemiesObservation.resize((row,col))
         self.marioFloats = marioPos
         self.enemiesFloats = enemiesPos
         self.mayMarioJump = marioState[3]
         self.isMarioOnGround = marioState[2]
-        #self.levelScene = levelScene
+        # self.levelScene = levelScene
         self.marioState = marioState[1]
-        #self.printLevelScene()
+        # self.printLevelScene()
 
-    def setObservationDetails(self, rfWidth, rfHeight, egoRow, egoCol):
-        print rfWidth, rfHeight, egoRow, egoCol
-        self.receptiveFieldWidth = rfWidth
-        self.receptiveFieldHeight = rfHeight
-        self.marioEgoRow = egoRow
-        self.marioEgoCol = egoCol
-        print self.receptiveFieldWidth, self.receptiveFieldHeight, self.marioEgoRow, self.marioEgoCol
+    def setObservationDetails(self, rfwidth, rfheight, egorow, egocol):
+        print(rfwidth, rfheight, egorow, egocol)
+        self.receptiveFieldWidth = rfwidth
+        self.receptiveFieldHeight = rfheight
+        self.marioEgoRow = egorow
+        self.marioEgoCol = egocol
+        print(self.receptiveFieldWidth, self.receptiveFieldHeight, self.marioEgoRow, self.marioEgoCol)
